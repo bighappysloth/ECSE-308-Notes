@@ -1,0 +1,36 @@
+\documentclass[../../main.tex]{subfiles}
+
+\begin{document}
+\subsection{Parity Check}
+\begin{definition}
+    For any $k$-bit sequence, $d = d_i$, $0\leq i\leq k-1$. We can append another bit, $d_k$ so that the transmitted sequence is $k+1$ bits, with. \\
+    
+    For even parity, $d_k = \oplus_{i=0}^{k-1}d_i$. The transmitted $k+1$ bit sequence has an even number of bits. The receiver can verify by taking $\oplus$ over all its $k+1$ entries, and 
+\end{definition}
+    
+    \[
+    r\in\mathbb{B}^{k+1}\text{ is valid }\iff \bigoplus_{i=0}^{k}r_i = 0
+    \]
+\begin{wtr}[Even/Odd Parity check]
+\begin{enumerate}
+    \item[]
+    \item For a $k$-bit sequence, it becomes a $k+1$-bit sequence.
+    \item Even parity, the parity check bit is
+    \[
+    d_k = \bigoplus_{i=0}^{k-1}d_i
+    \]
+    \item To verify even parity, if $r\in \mathbb{B}^{k+1}$ is valid, if and only if
+    \[
+    \bigoplus_{i=0}^kr_i = 0
+    \]
+    \item In like fashion, for odd parity, the parity check bit is
+    \[
+    d_k = 1\oplus\biggl(\bigoplus_{i=0}^{k-1}d_i\biggr)=\bigodot_{i=0}^{k-1}d_i = 0
+    \]
+    \item To verify odd parity, if $r\in \mathbb{B}^{k+1}$ is valid, (recall that $\oplus$ is the odd counting function), if and only if
+    \[
+    \bigoplus_{i=0}^kr_i = 1
+    \]
+\end{enumerate}
+\end{wtr}    
+\end{document}

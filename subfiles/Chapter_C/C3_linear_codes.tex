@@ -1,0 +1,159 @@
+\documentclass[../../main.tex]{subfiles}
+
+\begin{document}
+\subsection{Linear Codes}
+Any non-empty, subspace $C$ of $F^n$ with dimension $k$ where $1\leq k\neq n$ is called a $(n,k)$ linear code. In particular
+\begin{itemize}
+    \item If $F+\mathbb{Z}_2$, the $n$-parity check code is a subspace.
+\end{itemize}
+
+Arithmetic in $GF(2)$, 
+\subsubsection{Multiplication of Polynomials in GF(2)}
+If we want to multiply $(x^5 + x^2 + 1)(x^3+1)$, we write the coefficients of the two polynomials in the form
+\[
+(x^5 + x^2 + 1)(x^3+1)\iff (5,\,2,\,0)(3,\,0)
+\]
+Find the set of sums across the two tuples, given by
+\[
+(8,\,5,\,5,\,2,\,3,\,0)
+\]
+Then retain only the ones that have an odd number of terms (here the two $5$ cancel out), and we get
+\[
+(8,\,3,\,2,\,0)\iff x^8 + x^3 + x^2 + x^0
+\]
+Let us try with another example with $(1+x)(x+x^2)$
+\[
+(1+x)(x+x^2)\iff (1,\,0)(1,\,2)
+\]
+The set of sums is $(2,\,3,\,1,\,2)$, and flipping the required coefficients we get
+\[
+(3,1)\implies (1+x)(x+x^2) = x^3 + x
+\]
+\subsubsection{Introduction to Hamming Weights}
+Fix a code $C\subseteq F^n$, where $F^n$ in this section will always denote the finite cartesian product of $F=GF(p)$. Elements in $C$ are called code words. For any $c\in C$, we define its Hamming Weight 
+\[
+\wt(c) = \biggl|\{i,\,a_i\neq 0\}\biggr|
+\]
+$\wt(c)$ simply counts the number of non-zero digits. Therefore
+\begin{itemize}
+    \item For every $x\in C$, $0\leq \wt(x)\leq n$,
+    \item If $x\in C$, $\wt(x)=0\iff x=0$ (recall that $C$ is a subspace of $F^n$, so $0\in C$),
+    \item $\wt(\cdot)$ induces a metric on $C$, $d(\cdot,\cdot)$ 
+    \[
+    d(x,y)=\wt(x-y),\quad\forall x,\,y\in C
+    \]
+\end{itemize}
+To verify that the properties of a metric all hold for this $d(x,y)$ on $C$ 
+\begin{enumerate}
+    \item $d(x,x)=0\iff \wt(x-x)=0\iff x-x=0\iff x=x$,
+    \item For every pair of elements $x,y\in C$, $d(x,y)\geq 0$. This comes from the fact that $x-y\in C$ and $\wt(x-y)\geq 0$,
+    \item If $v,u,w\in C$ then
+    \[
+    d(v,w)\leq d(v,u) + d(u,w)
+    \]
+    This is an easy consequence of 
+    \begin{equation}\label{hamming weight triangle inequality}
+    \wt(a+b)\leq \wt(a)+\wt(b)
+    \end{equation}
+    If we write $v-u = a$, and $u-w = b$, then $a+b = v-w$. Indeed, if $a = (a_i)$, $b=(b_i)$, then if for some $1\leq j\leq n$ such that $a_j + b_j\neq 0$ then either $a_j\neq 0$ or $b_j\neq 0$. Therefore Equation $\eqref{hamming weight triangle inequality}$ holds.
+\end{enumerate}
+Furthermore, define a ball $B_r(w)$ about some $w\in F^n$ as follows
+\begin{equation}\label{ball definition in F^n}
+B_r(w) = \{x\in F^n,\, d(w,x)\leq r\}
+\end{equation}
+Notice how this differs from a regular ball in a metric space. We now turn our attention to a quantity which will be of great interest. Fix a $(n,k)$ linear code $C$, the minimum distance $d$ of $C$ is defined to be the smallest distance between two distinct code words in $C$, precisely
+\begin{equation}\label{minimum distance code}
+    d = \min\{d(v,w),\, v,\,w\in C,\, v\neq w\}
+\end{equation}
+This immediately implies that $d\geq 1$. If our code contains only one element (namely if $C$ is the trivial subspace), then $d = + \infty$.\\
+
+\begin{definition} A code $C$ uses the Nearest Neighbour Decoding if $w$ is a received word, and if $w\notin C$, then $w$ is decoded as the code word in $C$ that is the closest to it with respect to $d(\cdot,\cdot)$. If $w\in C$ then it is decoded as $w$. If there is a tie, then the nearest neighbour is chosen arbitrarily.
+\end{definition}
+\begin{wts}
+    If $C$ is an $n$-code with minimum distance $d$, (meaning that it does not have to be a subspace). If $C$ uses Nearest Neighbour Decoding, and if $t = d(w,c)$, there $w$ and $c$ are the received and transmitted words, then
+    \begin{itemize}
+        \item If $t<d$, then $C$ can detect $t$ errors,
+        \item If $2t<d$, then $C$ can correct $t$ errors.
+    \end{itemize}
+\end{wts}
+\begin{proof}
+    Let $c\in C$ and the received code $w$ satisfies $d(w,c)=t<d$, so the received code is $t$ distance away from the original code. Since $w\notin C$ by definition of $d$ (if $w\in C$ then that would mean $d\leq t$). $C$ can detect such an error, and we say that $C$ can correct $t<d$ errors.\\
+    
+    If $2t<d$, then $w$ lies only within the $t$-ball of $c$. This is because the $t$-balls about the code words in $C$ are pairwise disjoint. Indeed, if $w\in B_t(c)\cap B_t(c')$ for another code word $c'\in C$, then
+    \[
+    d\leq d(c',c)\leq d(w,c) + d(w,c')\leq 2t
+    \]
+    Leading to a contradiction.
+\end{proof}
+We are ready to prove the main theorems in this Chapter concerning Linear Codes.
+\begin{wts}
+    Let $C$ be an $(n,k)$-code that uses Nearest Neighbour Decoding, and $d$ be the same as above. Then
+    \begin{enumerate}
+        \item $d = \min\{\wt(w),\, w\in C,\, w\neq 0\}$,
+        \item $C$ can detect $t\geq 1$ errors if and only if $t<d$,
+        \item $C$ can correct $t\geq 1$ errors if and only if $2t<d$,
+        \item If $C$ can correct $t\geq 1$ errors, and denote $|F| = q$ (if $F =\mathbb{Z}_2$, then $|F|=2$), then
+        \[
+        \binom{n}{0} + \binom{n}{1}(q-1)+\binom{n}{2}(q-1)^2 + \cdots + \binom{n}{t}(q-1)^t \leq q^{n-k}
+        \]
+    \end{enumerate}
+\end{wts}
+\begin{proof}
+    We skip the proof for now.
+\end{proof}
+
+\begin{definition}
+    The coding rate for a $(n,k)$-linear code is $k/n$.
+\end{definition}
+\begin{definition}
+    A systematic linear code refers to the structure in which the $k$ information bits are preserved as the $k$ most significant bits.\\
+    
+    This means that they are shifted to the left-most entries in the array.
+    \begin{itemize}
+        \item Advantages: Ease of extraction without complex mapping
+    \end{itemize}
+    This means that the generator matrix $G$ for code $C\subseteq F^n$, is in the form
+    \[
+    G = \begin{bmatrix}I_k& A\end{bmatrix}
+    \]
+    Where $A$ is a $k\times (n-k)$ matrix.
+\end{definition}
+
+\subsubsection*{Codeword Generation}
+Let $D$ be a $1\times n$ matrix representing a $k$-bit data stream, with
+\[
+D = \biggl(d_{k-1},\,d_{k-2},\,\cdots,\,d_0\biggr)
+\]
+$D$ comes in the form of a row vector, and we right-multiply it with a $k\times n$ matrix $G$ to obtain the transmitted vector $c\in C$, where $C\subseteq F^n$ is a $k$-dimensional subspace.
+\[
+c = DG,\,C\in \mathbb{B}^{1\times n}
+\]
+We call this matrix $G$, the generator matrix. This matrix always exists given any linear code $C\subseteq F^n$ with dimension $k$. A few observations must be made,
+\begin{itemize}
+    \item Let $T$ be the linear transformation that 'encodes' our $k$-bit codes into row vectors in $F^n$, in symbols
+    \[
+    T: \mathbb{B}^{1\times k}\to \mathbb{B}^{1\times n},
+    \]
+    $G$ will be the matrix that represents this linear transformation. 
+    \item The generator matrix $G$ has $k$-independent rows, where each row represents a valid code-word $g_i\in C\subseteq F^n$. Such that any $c\in C$ is in the span of the rows of $G$.
+    \item The parity check matrix, $H$ is a $(n-k)\times n$, and satisfies
+    \[
+    GH^T =0
+    \]
+    If we left-multiply by some $d\in\mathbb{B}^{1\times k}$ then $dG=c$ for some $c\in C$, and $cH^T = 0$ for every $c\in C$.\\
+    
+    If $H$ is a $(n-k)\times n$ matrix, with rank (dimension of column-span) of $(n-k)$, this forces the row-space of $H^T$ to have dimension $(n-k)$, since 
+    \[
+    C = \im{T} = \{T(x),\,x\in \mathbb{B}^k\}
+    \]
+    We usually say that $H$ is a $(n-k)\times n$ matrix, with rank (column-span) $n-k$. And this forces the row-space of $H^T$ to have dimension $(n-k)$. 
+\end{itemize}
+
+\begin{definition}
+    A binary linear code is called MDS (maximum distance-separable) code if and only if $d$ is equal to its upper bound. (Also called Perfect Codes).
+    \[
+    d = \{d(x,y),\,x,y\in C,\, x\neq y\} = (n-k) + 1
+    \]
+\end{definition}
+
+\end{document}
