@@ -1,0 +1,49 @@
+\documentclass[../../../main.tex]{subfiles}
+
+\begin{document}
+\subsection{Problem C3}
+\begin{wts}
+    Using the $16$-bit Internet Checksum:
+    \begin{enumalpha}
+        \item Calculate the Internet checksum for the four $16$-bit words of data as follows: E308 E309 00FF 0F0F.
+        \item Suppose that the received data and checksum are contaminated with error as follows: E308 E309 00FF 0F0E 29DF. Verify that the internet checksum can detect the error.
+        \item Find an example of a 2-bit error that can fool Internet checksum for the above data and checksum.
+    \end{enumalpha}
+\end{wts}
+\begin{proof}
+Part a. Procedure for calculating the internet checksum:
+\begin{enumerate}
+    \item Using HEX mode on Calculator, add all the data bits together. 
+    \[
+    E308+E309+00FF+0F0F = 0001D61F
+    \]
+    \item Since there is a carry-out of '1', we subtract $10000$ and add $1$, equivalently:
+    \[
+    0001D61F - 10000 + 1 = D620
+    \]
+    \item Taking the one's complement, (bitwise XOR) of the sum. This is equivalent to subtracting with FFFF, therefore
+    \[
+    FFFF- D620 = 29DF
+    \]
+\end{enumerate}
+Part b. Verify that the internet checksum detects the error. The procedure is as follows
+\begin{enumerate}
+    \item Using HEX mode on Calculator, add all the shit together again,
+    \[
+    E308+E309+00FF+0F0E+29DF = 0001FFFD
+    \]
+    \item Carry-out of '1', we need to subtract 10000 and add 1, hence
+    \[
+    0001FFFD - 10000 + 1 = FFFE
+    \]
+    \item Take one's complement. Which equates to
+    \[
+    FFFF-FFFE = 0001 \neq 0000
+    \]
+    \item Therefore the internet checksum detects the error.
+\end{enumerate}
+Part c. We note that $E309$ and $E308$ are one bit different from each other, therefore we can apply the error which swaps $9$ with $8$. Resulting in E309 E308 00FF 0F0F 29DF.
+
+\end{proof}
+
+\end{document}

@@ -1,0 +1,14 @@
+\documentclass[../../../main.tex]{subfiles}
+
+\begin{document}
+\subsection{Problem C7}
+\begin{wts}
+    Consider the coding scheme in problem 6, what is the maximum number of detectable bit errors and the maximum number of bit errors that can be corrected? If the receiver receives a codeword of R = [111010], which valid codeword should it correct to? Explain why.
+\end{wts}
+\begin{proof}
+The maximum number of detectable bit errors is 2. The maximum number of bit errors that can be corrected is 1.\\
+
+If the receiver receives $R$ = [111010], then it assumes there is 1 error (since it can only correct 1 error). Flipping the second bit corrects $R$ to $B=[101010]$.
+\end{proof}
+
+\end{document}
