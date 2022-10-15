@@ -3,10 +3,29 @@
 \begin{document}
 \subsection{Problem C4}
 \begin{wts}
-
+    Let $G(x) = x^3 + 1$, and the information bits $D(x) = x^3 + x^2 + 1$.
+    \begin{enumalpha}
+        \item Find the corresponding CRC codeword,
+        \item If the CRC codeword is contaminated with $E(x) = x^3 + x^2$, show that the above CRC coding scheme detects this error, and
+        \item Find a 2-bit error pattern that can fool this CRC scheme.
+    \end{enumalpha}
 \end{wts}
-\begin{proof}
 
+\begin{proof}
+\subsubsection*{Part A}
+Obviously, $k=4$ and $n-k=3$, so $x^{3}D(x) = x^6 + x^5 + x^3$. Dividing $x^{3}D(x)$ by $x^3 + 1 = G(x)$, we have
+\[
+x^{3}D(x) = (x^3 + x^2)G(x) + x^2
+\]
+Therefore $R(x) = x^2$. And the transmitted frame becomes $x^6 + x^5 + x^3 + x^2 = 1101100$.
+\subsubsection*{Part B}
+$Z(x) = x^6 + x^5 + x^3 + x^2 + E(x) = x^6 + x^5$. Dividing by $G(x)$ we have
+\[
+Z(x) = (x^3 + x^2 + 1)G(x) + (x^2 + 1)
+\]
+Since $x^2 + 1\neq 0$, the CRC scheme detects the error.
+\subsubsection*{Part C}
+Take $E(x) = x^3 + 1$, then the set of valid codewords is a subspace, $Z(x) = x^6 + x^5 + x^3 + x^2 + E(x)$ is divided by G(x) cleanly.
 \end{proof}
 
 \end{document}

@@ -3,9 +3,32 @@
 \begin{document}
 \subsection{Problem C1}
 \begin{wts}
-
+  A transmission link with a bit error rate of p = 0.001 is used for transferring 10-byte frames. Calculate
+\begin{enumalpha}
+    \item The probability that there is exactly one error bit in the received frame?
+    \item What is the frame error probability, i.e., the probability that the received frame contains at least one error bit?
+    \item 
+    If the frame length is halved, what is the frame error probability?
+\end{enumalpha}
 \end{wts}
 \begin{proof}
+Let $n = 80$ bits. Using the Binomial distribution, it is trivial to verify that
+\subsubsection*{Part A}
+The probability there is one error bit in the frame is given by 
+\[
+P(k=1) = \binom{n}{1}p(1-p)^{n-1} = 0.0739
+\]
+\subsubsection*{Part B}
+The probability that there is at least one error is given by
+\[
+P(k\geq 1) = 1 - (1-p)^n = 0.0769
+\]
+
+\subsubsection*{Part C}
+The probability of a frame error given $m=n/2 = 40$ is
+\[
+P^m(k\geq 1) = 1-(1-p)^m = 0.0392
+\]
 
 \end{proof}
 
