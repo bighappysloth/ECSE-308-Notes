@@ -1,34 +1,13 @@
 \documentclass[../../main.tex]{subfiles}
 
 \begin{document}
-\subsection{Linear Codes}
-Any non-empty, subspace $C$ of $F^n$ with dimension $k$ where $1\leq k\neq n$ is called a $(n,k)$ linear code. In particular
-\begin{itemize}
-    \item If $F+\mathbb{Z}_2$, the $n$-parity check code is a subspace.
-\end{itemize}
+\subsection{C3 Linear Codes}
+\begin{definition}
+    Any non-empty, subspace $C$ of $F^n$ with dimension $k$ where $1\leq k\neq n$ is called a $(n,k)$ linear code. In particular,\\
+    
+    If $F+\mathbb{Z}_2$, the $n$-parity check code is a subspace.
+\end{definition}
 
-Arithmetic in $GF(2)$, 
-\subsubsection{Multiplication of Polynomials in GF(2)}
-If we want to multiply $(x^5 + x^2 + 1)(x^3+1)$, we write the coefficients of the two polynomials in the form
-\[
-(x^5 + x^2 + 1)(x^3+1)\iff (5,\,2,\,0)(3,\,0)
-\]
-Find the set of sums across the two tuples, given by
-\[
-(8,\,5,\,5,\,2,\,3,\,0)
-\]
-Then retain only the ones that have an odd number of terms (here the two $5$ cancel out), and we get
-\[
-(8,\,3,\,2,\,0)\iff x^8 + x^3 + x^2 + x^0
-\]
-Let us try with another example with $(1+x)(x+x^2)$
-\[
-(1+x)(x+x^2)\iff (1,\,0)(1,\,2)
-\]
-The set of sums is $(2,\,3,\,1,\,2)$, and flipping the required coefficients we get
-\[
-(3,1)\implies (1+x)(x+x^2) = x^3 + x
-\]
 \subsubsection{Introduction to Hamming Weights}
 Fix a code $C\subseteq F^n$, where $F^n$ in this section will always denote the finite cartesian product of $F=GF(p)$. Elements in $C$ are called code words. For any $c\in C$, we define its Hamming Weight 
 \[
@@ -105,49 +84,7 @@ We are ready to prove the main theorems in this Chapter concerning Linear Codes.
 \begin{definition}
     The coding rate for a $(n,k)$-linear code is $k/n$.
 \end{definition}
-\begin{definition}
-    A systematic linear code refers to the structure in which the $k$ information bits are preserved as the $k$ most significant bits.\\
-    
-    This means that they are shifted to the left-most entries in the array.
-    \begin{itemize}
-        \item Advantages: Ease of extraction without complex mapping
-    \end{itemize}
-    This means that the generator matrix $G$ for code $C\subseteq F^n$, is in the form
-    \[
-    G = \begin{bmatrix}I_k& A\end{bmatrix}
-    \]
-    Where $A$ is a $k\times (n-k)$ matrix.
-\end{definition}
 
-\subsubsection*{Codeword Generation}
-Let $D$ be a $1\times n$ matrix representing a $k$-bit data stream, with
-\[
-D = \biggl(d_{k-1},\,d_{k-2},\,\cdots,\,d_0\biggr)
-\]
-$D$ comes in the form of a row vector, and we right-multiply it with a $k\times n$ matrix $G$ to obtain the transmitted vector $c\in C$, where $C\subseteq F^n$ is a $k$-dimensional subspace.
-\[
-c = DG,\,C\in \mathbb{B}^{1\times n}
-\]
-We call this matrix $G$, the generator matrix. This matrix always exists given any linear code $C\subseteq F^n$ with dimension $k$. A few observations must be made,
-\begin{itemize}
-    \item Let $T$ be the linear transformation that 'encodes' our $k$-bit codes into row vectors in $F^n$, in symbols
-    \[
-    T: \mathbb{B}^{1\times k}\to \mathbb{B}^{1\times n},
-    \]
-    $G$ will be the matrix that represents this linear transformation. 
-    \item The generator matrix $G$ has $k$-independent rows, where each row represents a valid code-word $g_i\in C\subseteq F^n$. Such that any $c\in C$ is in the span of the rows of $G$.
-    \item The parity check matrix, $H$ is a $(n-k)\times n$, and satisfies
-    \[
-    GH^T =0
-    \]
-    If we left-multiply by some $d\in\mathbb{B}^{1\times k}$ then $dG=c$ for some $c\in C$, and $cH^T = 0$ for every $c\in C$.\\
-    
-    If $H$ is a $(n-k)\times n$ matrix, with rank (dimension of column-span) of $(n-k)$, this forces the row-space of $H^T$ to have dimension $(n-k)$, since 
-    \[
-    C = \im{T} = \{T(x),\,x\in \mathbb{B}^k\}
-    \]
-    We usually say that $H$ is a $(n-k)\times n$ matrix, with rank (column-span) $n-k$. And this forces the row-space of $H^T$ to have dimension $(n-k)$. 
-\end{itemize}
 
 \begin{definition}
     A binary linear code is called MDS (maximum distance-separable) code if and only if $d$ is equal to its upper bound. (Also called Perfect Codes).

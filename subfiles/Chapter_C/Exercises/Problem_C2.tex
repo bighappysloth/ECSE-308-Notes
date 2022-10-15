@@ -1,0 +1,23 @@
+\documentclass[../../../main.tex]{subfiles}
+
+\begin{document}
+\subsection{Problem C2}
+\begin{wts}
+    Assume that transmitting data is divided into chunks of $3$-bit long, and then odd-parity is applied to form a parity codeword. In the new $4$-bit parity codeword space, list all the valid and invalid codewords.
+\end{wts}
+\begin{proof}
+    We are using odd parity, so for any $c\in \bb{B}^4$,
+    \[
+    c\in C\iff \bigoplus_{i=0}^3 c_i =1
+    \]
+    Equivalently, $c\notin C\iff \bigoplus_{i=0}^c c_i =0$. Let us list $C^c$, the complement of $C$.
+    \[
+    C^c = \{[0000],\,[1111],\,[0011],\,[0101],\,[1001],\,[0110],\,[1010],\,[1001]\}
+    \]
+    And therefore
+    \[
+    C = \{[0001],\,[0010],\,[0100],\,[1000],\,[1110],\,[1101],\,[1011],\,[0111]\}
+    \]
+\end{proof}
+
+\end{document}

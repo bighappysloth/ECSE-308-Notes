@@ -1,0 +1,70 @@
+\documentclass[../../main.tex]{subfiles}
+
+\begin{document}
+\subsection{C4 Linear Codes (Generator)}
+\begin{definition}
+    A systematic linear code refers to the structure in which the $k$ information bits are preserved as the $k$ most significant bits.\\
+    
+    This means that they are shifted to the left-most entries in the array.
+    \begin{itemize}
+        \item Advantages: Ease of extraction without complex mapping
+    \end{itemize}
+    This means that the generator matrix $G$ for code $C\subseteq F^n$, is in the form
+    \[
+    G = \begin{bmatrix}I_k& A\end{bmatrix}
+    \]
+    Where $A$ is a $k\times (n-k)$ matrix.
+\end{definition}
+
+\subsubsection*{Codeword Generation}
+Let $D$ be a $1\times n$ matrix representing a $k$-bit data stream, with
+\[
+D = \biggl(d_{k-1},\,d_{k-2},\,\cdots,\,d_0\biggr)
+\]
+$D$ comes in the form of a row vector, and we right-multiply it with a $k\times n$ matrix $G$ to obtain the transmitted vector $c\in C$, where $C\subseteq F^n$ is a $k$-dimensional subspace.
+\[
+c = DG,\,C\in \mathbb{B}^{1\times n}
+\]
+We call this matrix $G$, the generator matrix. This matrix always exists given any linear code $C\subseteq F^n$ with dimension $k$. A few observations must be made,
+\begin{itemize}
+    \item Let $T$ be the linear transformation that 'encodes' our $k$-bit codes into row vectors in $F^n$, in symbols
+    \[
+    T: \mathbb{B}^{1\times k}\to \mathbb{B}^{1\times n},
+    \]
+    $G$ will be the matrix that represents this linear transformation. 
+    \item The generator matrix $G$ has $k$-independent rows, where each row represents a valid code-word $g_i\in C\subseteq F^n$. Such that any $c\in C$ is in the span of the rows of $G$.
+    \item The parity check matrix, $H$ is a $(n-k)\times n$, and satisfies
+    \[
+    GH^T =0
+    \]
+    If we left-multiply by some $d\in\mathbb{B}^{1\times k}$ then $dG=c$ for some $c\in C$, and $cH^T = 0$ for every $c\in C$.\\
+    
+    If $H$ is a $(n-k)\times n$ matrix, with rank (dimension of column-span) of $(n-k)$, this forces the row-space of $H^T$ to have dimension $(n-k)$, since 
+    \[
+    C = \image{T} = \{T(x),\,x\in \mathbb{B}^k\}
+    \]
+    We usually say that $H$ is a $(n-k)\times n$ matrix, with rank (column-span) $n-k$. And this forces the row-space of $H^T$ to have dimension $(n-k)$. \\
+    
+    The following equation is of utmost importance, if the rank of $H$ is $n-k$, then
+    \begin{equation}\label{kernel parity-check matrix is C}
+    \boxed{C = \{w\in \mathbb{B}^n,\, wH^T = 0\}}
+    \end{equation}
+    Every valid codeword $c\in C\subseteq \bb{B}^n$ must satisfy this property. \\
+    
+    The proof is quite straight-forward, we have already shown that $C\subseteq\{w\in \bb{B}^n,\, wH^T=0\}$, the second part of the proof just consists of showing that $\dim{\ker{H^T}} = (n-k)$. The reader should consult Chapter 8.8 of Nicholson's Linear Algebra for more details.
+    \item Assume that $c\in C$ is transmitted, and the receiver receives some $v\in F^n$, where possibly $v\notin C$, then we define
+    \begin{itemize}
+        \item $z=v-c$ as the error,
+        \item If $v\notin C$, then by Equation \eqref{kernel parity-check matrix is C}, $s=vH^T\neq 0$. Such a word $s\in\bb{B}^{(n-k)\times 1}$ is called the syndrome.
+    \end{itemize} 
+    Note a couple of things, the receiver has the vector $v$, and wishes to recover $c\in C$. For this task, it suffices to recover $z$, the error, since we can always subtract $c = v-z$. Furthermore, $cH^T = 0 \iff Hc^T = 0$, and by linearity, 
+    \[
+    c = v-z\implies Hc^T = Hv^T - Hz^T\implies s=Hv^T=Hv^T
+    \]
+    If we can solve for the error vector $v$, then we can solve for the original codeword by subtraction, what remains is to solve the homogeneous system of equations $s = Hv^T$.\\
+    
+    \item The set of all possible errors that can be applied to $c$ is $\mathbb{B}^{1\times n}$, but the syndrome is only a $\mathbb{B}^{(n-k)\times 1}$ vector. So there can be no one-to-one correspondence. The take-away is this, given a syndrome vector $s = Hv^T$, where $v$ is the received vector, the search for the error vector $z$, has to be reduced from $\bb{B}^{n}$ to $\mathbb{B}^{n-k}$ for a one-to-one correspondence.
+    \item Intuitively speaking, the larger $n-k$, the larger the syndrome vector; and the more likely we can recover the correct error vector, and thus recover $c$.
+\end{itemize}
+\end{document}
+

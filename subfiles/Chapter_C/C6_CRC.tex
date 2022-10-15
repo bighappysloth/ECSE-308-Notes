@@ -1,0 +1,52 @@
+\documentclass[../../main.tex]{subfiles}
+
+\begin{document}
+\subsection{Cyclic Redundancy Check}
+We begin with some size considerations. Suppose that
+\begin{itemize}
+    \item We are given a data vector, $D$ of $k$-bits. We can represent $D$ using a binary polynomial of $k-1$ degree, denoted by $D(X)$
+    \item In CRC, the transmitter then generates a $n-k$ bit sequence called a Frame-Check Sequence (FCS) or $R(X)$. ($n-k-1$ polynomial),
+    \item The transmitted frame, $T(X)$ is $n$ bits in size. ($n-1$ polynomial).
+    \item For any CRC scheme, where $n$, and $k$ are fixed numbers. There has to be a generator polynomial, $G(X)$ of degree $n-k$.
+    \item $R(X)$ is the remainder when $X^{n-k}D(X)$ is divided by $G(X)$.
+    \item $X^{n-k}D(X)$ simply shifts the bits in $D(X)$ leftwards by $n-k$. $R(X)$ has to have degree $n-k$.
+    \item The transmitted frame $T(X) = X^{n-k}D(X) + R(X)$.
+\end{itemize}
+The following example should enlighten things a bit. Let $G(X) = x^3 + 1$, and the corresponding information bits be $D = [1101]=x^3+x^2+x^0$. Degree on $G(X)$ is $3=n-k$, and Degree on $D(X)$ is $3=k-1$, therefore $k=4$ and $n-7$. Shifting $D(X)$ by $3$ bits to the left yields
+\[
+X^{n-k}D(X) = X^3D(X) = x^6 + x^5 + x^3
+\]
+Dividing $X^{n-k}/G(X)$ give us the remainder $R(X) = x^1$. Since $R(X)$ must have degree $n-k-1=2$, we can write $R(X) = [010]$. And the transmitted frame is $T(X) = [1101010]$.
+\begin{wtr} Cyclic Redundancy Check Computations\\[2ex]
+    Vector sizes
+    \begin{enumerate}
+        \item $D$: Data Vector, $k$ bits. Degree: $k-1$,
+        \item $G$: Generator Polynomial, Degree: $n-k$,
+        \item $R$: Remainder/Frame Check Sequence, Degree: $n-k-1$.
+    \end{enumerate}
+    Computations
+    \begin{enumerate}
+        \item Given $D$ and $G$. Determine $n$, and $k$ by
+        \begin{align}
+            \deg{G} &=n-k\\
+            \deg{D} &= k-1
+        \end{align}
+        \item Shift $D$ by $n-k$ bits.
+        \item Compute $R(X)$ by remainder of $X^{n-k}D(X)/G(X)$,
+        \item Concatenate $T(X) = X^{n-k}D(X) + R(X)$.
+        \item Extra: Verify that $T(X)$ has $n$-bits in total. (A polynomial of $n-1$ degree).
+    \end{enumerate}
+    Factoids
+    \begin{enumerate}
+        \item Given a transmitted codeword $T(X)$ from a generator polynomial $G(X)$. It is always possible to fool the scheme by using an error $E(X) = G(X)$. This is because $T(X)+E(X) = T(X) + G(X)$ divides $G(X)$.
+        \item Simple to implement,
+        \item Well suited to detect burst errors (useful because common transmission errors are burst errors),
+        \item Irreducible polynomial of degree $m$, not divisible by any polynomial with degree $0<k<m$.
+        \item Primitive polynomial of degree $m$, not divisible by any polynomial in the form $x^k + 1$, $0<k<2^m$
+        \item If $G$ is an irreducible polynomial of degree $L$, then CRC can detect all BURST errors of $0<k<L$.
+        \item If $G$ is a primitive polynomial of degree $L$, then CRC can detect all two-bit errors separated by $N<2^L$ bits.
+        \item A factor of $(x+1)$ detects any odd number of bit errors.
+        \item Single error patterns are detected by $G$ having two or more terms.
+    \end{enumerate}
+\end{wtr}
+\end{document}
