@@ -1,0 +1,113 @@
+\documentclass[../../main.tex]{subfiles}
+
+\begin{document}
+\newcommand{\pxf}{P_{\mathbf{X}}(f)}
+\newcommand{\pyf}{P_{\mathbf{y}}(f)}
+\newcommand{\hf}{\mathbf{H}(f)}
+\newcommand{\xf}{\mathbf{X}(f)}
+\newcommand{\yf}{\mathbf{Y}(f)}
+\subsection{B2 LTI Channel}
+Fix an LTI-channel, with transfer function $H(f)$, where $f$ is given in Hertz. We are concerned mostly about its response to sinusoids, so we require the Fourier Transform only. Below are the relationships between an input $\mathbf{X}(f)$ and $\mathbf{Y}(f)$.
+\begin{enumerate}
+    \item Amplitude relationship (in the time-domain and frequency domain)
+    \begin{align*}
+        y(t)&=h(t)\ast x(t)\\[2ex]
+        \yf&=\mathbf{H}(f)\cdot\xf
+    \end{align*}
+    \item Energy Spectral Densities (in the frequency domain)
+        \[
+        |\yf|^2=|\mathbf{H}(f)|^2\cdot|\xf|^2
+        \]
+    \item Power Spectral Densities (in the frequency domain)
+        \[
+        \pyf = |\mathbf{H}(f)|^2\cdot\pxf
+        \]
+\end{enumerate}
+We will hereinafter refer to the transfer function of the LTI channel as 'the LTI channel $\hf$' and use those two terms interchangably. We state some characterizations of the transfer function $\hf$:
+\begin{enumerate}
+    \item Polar decomposition
+    \[
+    \hf =|\hf|e^{j\theta(f)},\quad\theta(f)\defined\angle(\hf)
+    \]
+    \item Gain of the channel, or the magnitude response $|\hf|$,
+    \item Phase of the channel, or the phase response $\theta(f)$,
+    \item Group delay at frequency $f$,
+    \[
+    \tau(f)\defined \dfrac{1}{2\pi}\dfrac{d\theta(f)}{df}
+    \]
+    \item Relative channel magnitude attenuation at frequency $f$,
+    \[
+    |\hf|_{dB}^{-1} = -20\log_{10}|\hf|
+    \]
+\end{enumerate}
+\subsubsection{Channel Response Equations}
+Let us agree to make the following definitions
+\begin{itemize}
+    \item $s(t)$: transmitted signal,
+    \item $r(t)$: received signal,
+    \item $\hf$: transfer function of LTI channel
+    \item $h(t)$: normalized impulse response to channel
+    \item $i(t)$: additive interference
+    \item $n(t)$: additive noise
+    \item $a$: attenuation (assumed to be a constant), in addition to channel attenuation
+    \item $r_0(t)$ interference, noise free received component
+\end{itemize}
+Equations in the time-domain
+\begin{align}
+    r(t) &= r_0(t) + i(t) + n(t)\\[2ex]
+    r_0(t) &= a^{-1}h(t)\ast s(t)
+\end{align}
+Likewise in the frequency domain
+\begin{align}
+    \mathbf{R}(f) &= \mathbf{R}_0(f) + \mathbf{I}(f) + \mathbf{N}(f)\\[2ex]
+    \mathbf{R}_0(f) &= a^{-1}\hf\cdot \mathbf{S}(f)
+\end{align}
+Combining the two equations, we get
+\begin{align}
+    r(t) &= a^{-1}ht(t)\ast s(t) + i(t) + n(t)\\[2ex]
+    \mathbf{R}(f) &=a^{-1}\hf\cdot \mathbf{S}(f) + \mathbf{I}(f) + \mathbf{N}(f)
+\end{align}
+\subsubsection{Constant Gain and Group Delay}
+Let us consider a real-valued, strictly bandlimited, signal $s(t)$, and a channel $\hf$. Suppose that $[f_1,f_2]$ is a closed interval that contains $\supp{S(f)}\cap \mathbb{R}^+$, and $|\hf|=1$, and $\tau(f)=\tau_0$ on $[f_1,f_2]$. Then,
+\[
+\tau(f) = \tau_0 = \dfrac{1}{2\pi}\frac{d}{df}\theta(f)\implies \theta(f) = 2\pi\tau_0f
+\]
+Writing $\hf$ in polar form yields
+\[
+\mathbf{R}_0(f) = a^{-1}|\hf|e^{j2\pi\tau_0 f}S(f)
+\]
+Therefore, the interference, noise-free component only suffers from constant attenuation without distortion. If the group delay were not a constant on $[f_1,f_2]$, then a distorted version of $s(t)$ will be received.
+\[
+r_0(t) = a^{-1}s(t+\tau_0)
+\]
+\subsubsection{Equalizer Function}
+If indeed that $\hf$ has a non-constant group-delay on $[f_1,f-2]$, then we can 'undo' the channel response by applying another LTI filter in the form of $\mathbf{Q}(f)$, define
+\[
+\mathbf{Q}(f) = \dfrac{bae^{j2\pi f\tau'}}{H(f)}
+\]
+Notice the original transfer function $\hf$ at the denominator, and the attenuation is undone by a gain factor of $a$. An ideal equalizer only introduces additional delay in $\tau'$ (see the numerator). Applying one $\mathbf{Q}(f)$ after $\hf$, we get the new effective transfer function
+\[
+\mathbf{Q}\mathbf{H}(f) = be^{j2\pi f\tau')}\implies s'(t) = bs(t+\tau')
+\]
+Which just delays the signal by $\tau'$ and applies a gain of $b$.
+\subsubsection{Noise and Filtering}
+The ideal bandpass filter has constant group delay of $d_F$ (delay of the filter) over $B=[f_1,f_2]$, and its amplitude response is just the indicator function on $B$.
+\[
+|\mathbf{B}_F(f)| = \chi_B
+\]
+If we apply $\mathbf{B}_F(f)$ onto $\mathbf{N}(f)$ and $\mathbf{I}(f)$, we can filter out the out of band interference and noise. \\
+
+Consider the following equations onto the noise-interference free component:
+\begin{align}
+    \mathbf{R}_{oF}(f) &= \mathbf{R}_o(f)\mathbf{B}_F(f) =a^{-1}\mathbf{R}_0(f)e^{j2\pi f d_F}\\[2ex]
+    r_{oF}(t) &= a^{-1}r_o(t + d_F)\label{filter introduces additional delay}
+\end{align}
+The effects on the $\mathbf{N}(f)$ and $\mathbf{I}(f)$ hold no surprises,
+\begin{itemize}
+    \item $\mathbf{N}_F(f)$ vanishes outside $[f_1,f_2]$
+    \item $\mathbf{I}_F(f)$ vanishes outside $[f_1,f_2]$
+\end{itemize}
+\begin{wtr}
+
+\end{wtr}
+\end{document}

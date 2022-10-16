@@ -1,0 +1,130 @@
+\documentclass[../../main.tex]{subfiles}
+
+\begin{document}
+\newcommand{\pmf}{P_{\mathbf{S}}(f)}
+%\newcommand{\pyf}{P_{\mathbf{y}}(f)}
+\newcommand{\hf}{\mathbf{H}(f)}
+\newcommand{\mf}{\mathbf{S}(f)}
+%\newcommand{\yf}{\mathbf{Y}(f)}
+\subsection{B3 Analog Modulation}
+We will discuss three main modulation techniques, namely
+\begin{enumerate}
+    \item Amplitude Modulation (AM),
+    \item Phase Modulation (PM), and
+    \item Frequency Modulation (FM)
+\end{enumerate}
+Let us agree to define $m(t)\iff \mf$ as some real-valued, strictly bandlimited, baseband signal. And our carrier wave $A_c\cos{2\pi f_c t}$ at carrier frequency $f_c$Hz.
+\begin{definition}
+    Coherent Demodulation is when the demodulator requires a reference signal which has exactly the same frequency and phase as the carrier signal.
+\end{definition}
+\subsubsection{DSB-LC AM}
+Transmitted Signal
+
+\begin{equation}\label{DSB-LC time domain}
+    s_{LC}(t) = A_c\biggl(1+km(t)\biggr)\cos(2\pi f_c t)
+\end{equation}
+
+\begin{equation}\label{DSB-LC frequency domain}
+    \mathbf{S}_{LC}(f) = \dfrac{A_c}{2}\biggl[\delta(f-f_c) + \delta(f+f_c)\biggr] + \dfrac{kA_c}{2}\biggl[\mathbf{M}(f-f_c) + \mathbf{M}(f+f_c)\biggr]
+\end{equation}
+Modulation Considerations
+\begin{itemize}
+    \item $k$ is chosen such that $1+km(t)\geq 0$ for all $t\geq 0$ to prevent phase reversal,
+    \item AM Modulation index: $\phi=-km_{min}\leq 1$,
+    \item Percentage Modulation: $100\phi$,
+    \item Under/Over-modulation $\phi<1$ or $\phi > 1$
+\end{itemize}
+Power efficiency
+\begin{itemize}
+    \item The unmodulated carrier component has power 
+    \[
+    P_c = \frac{A_c^2}{2}
+    \]
+    \item The information signal power, 
+    \[
+    P_s = \dfrac{(kA_c)^2}{2}\int |m(t)|^2dt
+    \]
+    \item The required power, 
+    \[
+    P_t = P_c + P_s
+    \]
+    \item It can be shown that assuming that $m(t)$ is a sinusoid, then the information signal power is bounded above by 
+    \[
+    P_s\leq \dfrac{1}{3}P_t
+    \]
+    (Waste power bad!)
+\end{itemize}
+\begin{wtr}[DSB-LC AM]
+\begin{enumerate}
+    \item[]
+    \item Simple and Robust
+    \item Envelope Detection, does not require coherent demodulation.
+    \item Bandwidth: $m(t)$ has bandwidth $W$,then $s_{LC}(t)$ will require $2W$ bandwidth,
+    \item Low POWER efficiency, because of unmodulated carrier component
+    \item Bandwidth Overlapping: Require $W\ll f_c$.
+    \item Within AWGN channel, provides better SNR than DSB-SC, SSB-SC.
+\end{enumerate}
+\end{wtr}
+
+\subsubsection{DSB-SC AM}
+Transmitted Signal
+
+\begin{equation}\label{DSB-SC time domain}
+    s_{SC}(t) = A_ckm(t)\cos(2\pi f_c t)
+\end{equation}
+
+\begin{equation}\label{DSB-LC frequency domain}
+    \mathbf{S}_{SC}(f) = \dfrac{kA_c}{2}\biggl[\mathbf{M}(f-f_c) + \mathbf{M}(f+f_c)\biggr]
+\end{equation}
+
+\begin{wtr}[DSB-SC AM]
+\begin{enumerate}
+    \item[]
+    \item Not as simple as DSB-LC
+    \item Requires coherent demodulation. Complicated set up.
+    \item Bandwidth: $2W$, same as DSB-LC
+    \item Power Efficiency: Higher than DSB-LC
+\end{enumerate}
+\end{wtr}
+
+\subsubsection{SSB-SC AM}
+Single-sideband, suppressed carrier. We either choose Upper or Lower side bands (away and towards the origin), because of hermitian symmetry of $\mf$.
+\begin{itemize}
+    \item Bandwidth: $W$, improved,
+    \item Hard to realize the phase splitter (unit-step in frequency domain) at baseband, because of the discontinuity at $f=0$.
+    \item Demodulation is even more complex than DSB-SC
+\end{itemize}
+\subsubsection{FM}
+\begin{wtr}
+\begin{enumerate}
+    \item[]
+    \item $s_{FM}(t) = A_c\cos(\theta(t))$, with $\theta(t)$ being the 'phase' of the transmitted signal
+    \[
+    \theta(t) = 2\pi\biggl(f_ct + k\int^{t}_{-\infty}m(x)dx\biggr)
+    \]
+    The instantaneous frequency is therefore
+    \[
+    \dfrac{d}{dt}\theta(t) = 2\pi(f_c + km(t))
+    \]
+    \item Phase proportional to integral of $m(t)$.
+    \item Peak Frequency Deviation: $\Delta f = k\norm{m(t)}_{\infty}$,
+    \item FM Index: $\beta = \Delta f/W$, $W$ is the bandwidth of $m(t)$
+    \item Carson's Rule: required bandwidth for FM $B_{FM}\approx 2(1+\beta)W$
+    \item FM requires much larger BW than AM,
+    \item Increasing $\beta$ increases required BW, and improves $SNR_{out}=SNR_{in}[3\beta^2(1+\beta)/2]$.
+    \item AM radio systems operate at much lower BW than FM. 500-1700kHz compared to 88-108MHz.
+\end{enumerate}
+\end{wtr}
+\subsubsection{PM}
+\begin{wtr}
+    \begin{enumerate}
+        \item[]
+        \item Transmitted Signal
+        \[
+        s_{PM}(t) = A_c\cos\biggl(2\pi f_c t + km(t)\biggr)
+        \]
+        \item Instant Frequency is proportional to $\dfrac{d}{dt}m(t)$.
+        \item Phase proportional to $m(t)$.
+    \end{enumerate}
+\end{wtr}
+\end{document}
