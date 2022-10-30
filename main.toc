@@ -1,0 +1,37 @@
+\contentsline {section}{\numberline {1}Chapter A}{3}{section.1}%
+\contentsline {section}{\numberline {2}Chapter B}{4}{section.2}%
+\contentsline {subsection}{\numberline {2.1}B1 Signal Sizes}{4}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}B2 LTI Channel}{6}{subsection.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.1}Channel Response Equations}{7}{subsubsection.2.2.1}%
+\contentsline {subsubsection}{\numberline {2.2.2}Constant Gain and Group Delay}{8}{subsubsection.2.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.3}Equalizer Function}{8}{subsubsection.2.2.3}%
+\contentsline {subsubsection}{\numberline {2.2.4}Noise and Filtering}{8}{subsubsection.2.2.4}%
+\contentsline {subsection}{\numberline {2.3}B3 Analog Modulation}{10}{subsection.2.3}%
+\contentsline {subsubsection}{\numberline {2.3.1}DSB-LC AM}{10}{subsubsection.2.3.1}%
+\contentsline {subsubsection}{\numberline {2.3.2}DSB-SC AM}{11}{subsubsection.2.3.2}%
+\contentsline {subsubsection}{\numberline {2.3.3}SSB-SC AM}{12}{subsubsection.2.3.3}%
+\contentsline {subsubsection}{\numberline {2.3.4}FM}{12}{subsubsection.2.3.4}%
+\contentsline {subsubsection}{\numberline {2.3.5}PM}{13}{subsubsection.2.3.5}%
+\contentsline {subsection}{\numberline {2.4}B4 Digital Modulation}{14}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}B5 ISI and AWGN}{15}{subsection.2.5}%
+\contentsline {section}{\numberline {3}Chapter C Notes}{16}{section.3}%
+\contentsline {subsection}{\numberline {3.1}C1 Parity Check}{16}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}C2 Internet Checksum}{17}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}C3 Linear Codes}{19}{subsection.3.3}%
+\contentsline {subsubsection}{\numberline {3.3.1}Introduction to Hamming Weights}{19}{subsubsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.4}C4 Linear Codes (Generator)}{22}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.5}Arithmetic in GF(2)}{25}{subsection.3.5}%
+\contentsline {subsubsection}{\numberline {3.5.1}Multiplication of Polynomials in GF(2)}{25}{subsubsection.3.5.1}%
+\contentsline {subsubsection}{\numberline {3.5.2}Long Division of Polynomials in GF(2)}{25}{subsubsection.3.5.2}%
+\contentsline {subsection}{\numberline {3.6}Cyclic Redundancy Check}{26}{subsection.3.6}%
+\contentsline {subsection}{\numberline {3.7}ARQ and FEC}{28}{subsection.3.7}%
+\contentsline {subsection}{\numberline {3.8}Coding Gain in AWGN Channel}{29}{subsection.3.8}%
+\contentsline {subsection}{\numberline {3.9}Chapter C Exercises}{30}{subsection.3.9}%
+\contentsline {subsubsection}{\numberline {3.9.1}Problem C1}{30}{subsubsection.3.9.1}%
+\contentsline {subsubsection}{\numberline {3.9.2}Problem C2}{31}{subsubsection.3.9.2}%
+\contentsline {subsubsection}{\numberline {3.9.3}Problem C3}{32}{subsubsection.3.9.3}%
+\contentsline {subsubsection}{\numberline {3.9.4}Problem C4}{34}{subsubsection.3.9.4}%
+\contentsline {subsubsection}{\numberline {3.9.5}Problem C5}{35}{subsubsection.3.9.5}%
+\contentsline {subsubsection}{\numberline {3.9.6}Problem C6}{36}{subsubsection.3.9.6}%
+\contentsline {subsubsection}{\numberline {3.9.7}Problem C7}{37}{subsubsection.3.9.7}%
+\contentsline {subsubsection}{\numberline {3.9.8}Problem C8}{38}{subsubsection.3.9.8}%
