@@ -1,0 +1,43 @@
+\documentclass[../main.tex]{subfiles}
+\begin{document}
+\providecommand{\pow}[1]{\times 10^{#1}}
+\providecommand{\framelength}{\mathrm{frames/frame length}}
+\providecommand{\bps}{\mathrm{bps}} % bps in math mode
+\providecommand{\khz}{\mathrm{kHz}} %khz in math mdoe
+\providecommand{\hz}{\mathrm{Hz}}
+\subsection{Assignment 2}
+\subsubsection{D5}
+\begin{enumalpha}
+\item $SNR_{dB}=10\log_{10}(SNR)=5$, hence
+\[SNR = 10^{2^{-1}}\]
+Spectral Efficiency $\Epsilon_{max} = \log_2(1+SNR)$, and each channel occupies $6^{-1}120\pow{3}$Hz of bandwidth. Calculating bitrate $R_b$,
+\[R_b=6^{-1}120\pow{3}\log_2(1+10^{2^{-1}})\approx 49400\mathrm{bps}\]
+\item If we have $N$ channel, then we require $N-1$ guard bands. Suppose now that $B_{guard}=10^{-1}B_{channel}$, then 
+\[NB_{channel}+(N-1)B_{guard}=120\pow{3}\implies B_{channel}\approx 18.5\mathrm{kHz}\]
+Using the previous bitrate, and scaling by a factor of $(18.5)/20$, 
+\[R_b\approx 49400\dfrac{18.5}{20}\approx 45695\mathrm{bps}\]
+\end{enumalpha}
+\subsubsection{D7}
+\begin{enumalpha}
+\item Let $\mathbf{X}$ be a geometric random variable on an arbitrary space. With $p=0.2$, then the mean is given by
+\[\int_\Omega \mathbf{X}dP=\sum_{m\geq 0}(1-p)^mp=p^{-1}=5\text{ trials till first success}\]
+\item Load G:
+\[
+G = \ln(0.2)(-2)^{-1}\approx 0.805
+\]
+\[S_{ALOHA}=0.2G\approx 0.161\]
+\item Decrease load $G\to 2^{-1}$. Maximum achievable rate for a unslotted ALOHA
+\[\sup\biggl\{S_{unslotted}(G)\biggr\}=S_{unslotted}(G=1)=2^{-1}e^{-2(2^{-1})}\approx 0.184\framelength\]
+In bps, 
+\[\sup\biggl\{S_{unslotted}(G)\biggr\}_{BPS}=(0.1)^{-1}(1000)\cdot 0.184\approx 1840\mathrm{bps}\]
+\item Maximum achievable rate for slotted ALOHA
+\[
+\sup\biggl\{S_{Slotted}(G)\biggr\} = S_{Slotted}(G=1)=e^{-1}\approx 0.368\framelength
+\]
+Given $e^{-2}$ frames per frame interval, we have $(0.1)^{-1}e^{-2}$ frames per second. Each frame contains $1000$ bits, therefore 
+\[
+\sup\biggl\{S_{Slotted}(G)\biggr\}_{bps} = 10000e^{-1}\approx 3680\mathrm{bps}
+\]
+
+\end{enumalpha}
+\end{document}
